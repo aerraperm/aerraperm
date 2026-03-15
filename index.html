@@ -1,0 +1,1459 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Aerra - Сублимационная печать в Перми</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='white'/%3E%3Ctext x='50' y='75' font-size='80' text-anchor='middle' fill='black' font-family='Arial, sans-serif' font-weight='bold'%3EА%3C/text%3E%3C/svg%3E" type="image/svg+xml">
+<script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU" type="text/javascript"></script>
+<style>
+:root {
+/* Light theme variables */
+--bg-primary: #ffffff;
+--bg-secondary: #f8f9fa;
+--text-primary: #1a1a1a;
+--text-secondary: #495057;
+--accent-primary: #2c3e50;
+--accent-secondary: #3498db;
+--border-color: #e9ecef;
+--card-bg: #ffffff;
+--shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+--shadow-hover: 0 10px 15px rgba(0, 0, 0, 0.1);
+--transition: all 0.3s ease;
+}
+.dark-theme {
+/* Dark theme variables */
+--bg-primary: #121212;
+--bg-secondary: #1e1e1e;
+--text-primary: #f0f0f0;
+--text-secondary: #b0b0b0;
+--accent-primary: #3498db;
+--accent-secondary: #2c3e50;
+--border-color: #333333;
+--card-bg: #1a1a1a;
+--shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+--shadow-hover: 0 10px 15px rgba(0, 0, 0, 0.3);
+}
+* {
+margin: 0;
+padding: 0;
+box-sizing: border-box;
+}
+body {
+font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+background-color: var(--bg-primary);
+color: var(--text-primary);
+line-height: 1.6;
+transition: var(--transition);
+overflow-x: hidden;
+}
+/* Header & Navigation */
+header {
+background-color: var(--bg-secondary);
+box-shadow: var(--shadow);
+position: fixed;
+width: 100%;
+top: 0;
+z-index: 1000;
+transition: var(--transition);
+}
+.header-container {
+display: flex;
+justify-content: space-between;
+align-items: center;
+padding: 1.2rem 5%;
+max-width: 1400px;
+margin: 0 auto;
+}
+.logo {
+display: flex;
+align-items: center;
+font-size: 1.8rem;
+font-weight: 700;
+color: var(--accent-primary);
+text-decoration: none;
+}
+.logo-icon {
+margin-right: 0.5rem;
+font-size: 2rem;
+}
+nav ul {
+display: flex;
+list-style: none;
+margin-left: 2rem;
+}
+nav ul li {
+margin-left: 2rem;
+}
+nav ul li a {
+text-decoration: none;
+color: var(--text-primary);
+font-weight: 500;
+font-size: 1.05rem;
+padding: 0.5rem 0;
+position: relative;
+transition: var(--transition);
+}
+nav ul li a:hover,
+nav ul li a.active {
+color: var(--accent-primary);
+}
+nav ul li a::after {
+content: '';
+position: absolute;
+bottom: 0;
+left: 0;
+width: 0;
+height: 2px;
+background-color: var(--accent-primary);
+transition: var(--transition);
+}
+nav ul li a:hover::after,
+nav ul li a.active::after {
+width: 100%;
+}
+.header-actions {
+display: flex;
+align-items: center;
+gap: 1.5rem;
+}
+.theme-toggle, .lang-toggle {
+background: none;
+border: none;
+color: var(--text-primary);
+font-size: 1.2rem;
+cursor: pointer;
+width: 40px;
+height: 40px;
+border-radius: 50%;
+display: flex;
+align-items: center;
+justify-content: center;
+transition: var(--transition);
+}
+.theme-toggle:hover, .lang-toggle:hover {
+background-color: var(--border-color);
+transform: rotate(30deg);
+}
+.lang-toggle {
+font-weight: 500;
+width: auto;
+border-radius: 20px;
+padding: 0 10px;
+}
+/* Main Content */
+main {
+margin-top: 70px;
+min-height: calc(100vh - 140px);
+padding: 2rem 5%;
+max-width: 1400px;
+margin-left: auto;
+margin-right: auto;
+}
+.page {
+display: none;
+animation: fadeIn 0.5s ease;
+}
+.page.active {
+display: block;
+}
+@keyframes fadeIn {
+from { opacity: 0; transform: translateY(10px); }
+to { opacity: 1; transform: translateY(0); }
+}
+/* Hero Section */
+.hero {
+text-align: center;
+padding: 4rem 2rem;
+background: linear-gradient(135deg, var(--accent-primary) 0%, var(--accent-secondary) 100%);
+color: white;
+border-radius: 12px;
+margin-bottom: 3rem;
+box-shadow: var(--shadow);
+}
+.hero h1 {
+font-size: 3.5rem;
+margin-bottom: 1.5rem;
+text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+.hero p {
+font-size: 1.5rem;
+max-width: 800px;
+margin: 0 auto 2.5rem;
+opacity: 0.9;
+}
+.btn {
+display: inline-block;
+background: white;
+color: var(--accent-primary);
+padding: 0.9rem 2.2rem;
+border-radius: 50px;
+text-decoration: none;
+font-weight: 600;
+font-size: 1.1rem;
+transition: var(--transition);
+border: 2px solid white;
+cursor: pointer;
+box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+}
+.btn:hover {
+transform: translateY(-3px);
+box-shadow: 0 6px 15px rgba(0,0,0,0.2);
+}
+.btn-primary {
+background: var(--accent-secondary);
+color: white;
+border-color: var(--accent-secondary);
+}
+.btn-primary:hover {
+background: #2980b9;
+transform: translateY(-3px);
+box-shadow: 0 6px 15px rgba(0,0,0,0.25);
+}
+/* About Section */
+.about-grid {
+display: grid;
+grid-template-columns: 1fr 1fr;
+gap: 3rem;
+margin-top: 2rem;
+}
+.about-text h2 {
+font-size: 2.5rem;
+margin-bottom: 1.5rem;
+color: var(--accent-primary);
+}
+.about-text p {
+margin-bottom: 1.5rem;
+font-size: 1.1rem;
+}
+.stats-grid {
+display: grid;
+grid-template-columns: repeat(2, 1fr);
+gap: 1.5rem;
+margin-top: 2rem;
+}
+.stat-card {
+background: var(--card-bg);
+border-radius: 12px;
+padding: 1.8rem;
+text-align: center;
+box-shadow: var(--shadow);
+transition: var(--transition);
+}
+.stat-card:hover {
+transform: translateY(-5px);
+box-shadow: var(--shadow-hover);
+}
+.stat-number {
+font-size: 2.5rem;
+font-weight: 700;
+color: var(--accent-secondary);
+margin-bottom: 0.5rem;
+}
+.stat-label {
+font-size: 1.1rem;
+color: var(--text-secondary);
+}
+.working-hours {
+background: var(--card-bg);
+border-radius: 12px;
+padding: 2rem;
+margin-top: 2rem;
+box-shadow: var(--shadow);
+}
+.working-hours h3 {
+font-size: 1.8rem;
+margin-bottom: 1.2rem;
+color: var(--accent-primary);
+}
+.hours-grid {
+display: grid;
+grid-template-columns: repeat(2, 1fr);
+gap: 0.8rem;
+}
+.hours-grid div {
+padding: 0.5rem 0;
+border-bottom: 1px solid var(--border-color);
+}
+.hours-grid div:last-child {
+border-bottom: none;
+}
+.day {
+font-weight: 500;
+}
+.time {
+color: var(--accent-secondary);
+font-weight: 500;
+}
+/* Services Section */
+.services-categories {
+display: grid;
+grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+gap: 2.5rem;
+margin-top: 2.5rem;
+}
+.category-card {
+background: var(--card-bg);
+border-radius: 16px;
+overflow: hidden;
+box-shadow: var(--shadow);
+transition: var(--transition);
+}
+.category-card:hover {
+transform: translateY(-8px);
+box-shadow: var(--shadow-hover);
+}
+.category-header {
+background: linear-gradient(135deg, var(--accent-primary) 0%, var(--accent-secondary) 100%);
+color: white;
+padding: 1.5rem;
+text-align: center;
+}
+.category-header h3 {
+font-size: 1.8rem;
+}
+.category-items {
+padding: 1.8rem;
+}
+.category-items ul {
+list-style: none;
+padding-left: 1rem;
+}
+.category-items li {
+padding: 0.7rem 0;
+border-bottom: 1px solid var(--border-color);
+display: flex;
+align-items: center;
+}
+.category-items li:before {
+content: "✓";
+color: var(--accent-secondary);
+font-weight: bold;
+margin-right: 0.8rem;
+}
+.category-items li:last-child {
+border-bottom: none;
+}
+/* Portfolio Section */
+.portfolio-section {
+margin-top: 4rem;
+}
+.portfolio-header {
+text-align: center;
+margin-bottom: 3rem;
+}
+.portfolio-header h2 {
+font-size: 2.8rem;
+margin-bottom: 1rem;
+color: var(--accent-primary);
+}
+.portfolio-header p {
+font-size: 1.3rem;
+max-width: 700px;
+margin: 0 auto;
+color: var(--text-secondary);
+}
+.portfolio-grid {
+display: grid;
+grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+gap: 2rem;
+}
+.portfolio-item {
+border-radius: 12px;
+overflow: hidden;
+box-shadow: var(--shadow);
+transition: var(--transition);
+position: relative;
+height: 300px;
+}
+.portfolio-item:hover {
+transform: translateY(-10px);
+box-shadow: var(--shadow-hover);
+}
+.portfolio-img {
+width: 100%;
+height: 100%;
+object-fit: cover;
+display: block;
+}
+.portfolio-overlay {
+position: absolute;
+bottom: 0;
+left: 0;
+right: 0;
+background: linear-gradient(0deg, rgba(0,0,0,0.8), rgba(0,0,0,0.0));
+color: white;
+padding: 1.5rem;
+transform: translateY(100%);
+transition: var(--transition);
+}
+.portfolio-item:hover .portfolio-overlay {
+transform: translateY(0);
+}
+.portfolio-overlay h3 {
+font-size: 1.4rem;
+margin-bottom: 0.5rem;
+}
+.portfolio-overlay p {
+font-size: 1rem;
+opacity: 0.9;
+}
+/* Prices Section */
+.prices-intro {
+text-align: center;
+max-width: 800px;
+margin: 0 auto 3rem;
+}
+.prices-intro h2 {
+font-size: 2.5rem;
+margin-bottom: 1.5rem;
+color: var(--accent-primary);
+}
+.prices-intro p {
+font-size: 1.2rem;
+color: var(--text-secondary);
+}
+.price-cards {
+display: grid;
+grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+gap: 2.5rem;
+margin-top: 2rem;
+}
+.price-card {
+background: var(--card-bg);
+border-radius: 16px;
+overflow: hidden;
+box-shadow: var(--shadow);
+transition: var(--transition);
+border: 1px solid var(--border-color);
+}
+.price-card:hover {
+transform: translateY(-5px);
+box-shadow: var(--shadow-hover);
+border-color: var(--accent-secondary);
+}
+.price-header {
+background: linear-gradient(135deg, var(--accent-primary) 0%, var(--accent-secondary) 100%);
+color: white;
+padding: 1.8rem;
+text-align: center;
+}
+.price-header h3 {
+font-size: 1.8rem;
+}
+.price-value {
+font-size: 3rem;
+font-weight: 700;
+margin: 1.2rem 0;
+}
+.price-items {
+padding: 1.8rem;
+}
+.price-items ul {
+list-style: none;
+padding-left: 0;
+}
+.price-items li {
+padding: 0.8rem 0;
+border-bottom: 1px solid var(--border-color);
+display: flex;
+align-items: center;
+}
+.price-items li:before {
+content: "★";
+color: var(--accent-secondary);
+margin-right: 0.8rem;
+}
+.price-items li:last-child {
+border-bottom: none;
+}
+.price-note {
+background: var(--bg-secondary);
+padding: 1.5rem;
+border-radius: 12px;
+margin-top: 2rem;
+text-align: center;
+font-style: italic;
+color: var(--text-secondary);
+}
+/* Contacts Section */
+.contact-container {
+display: grid;
+grid-template-columns: 1fr 1fr;
+gap: 3rem;
+margin-top: 2rem;
+}
+.contact-info h2 {
+font-size: 2.5rem;
+margin-bottom: 1.8rem;
+color: var(--accent-primary);
+}
+.contact-details {
+margin-top: 1.5rem;
+}
+.contact-item {
+display: flex;
+margin-bottom: 1.8rem;
+align-items: flex-start;
+}
+.contact-icon {
+min-width: 50px;
+height: 50px;
+background: var(--accent-secondary);
+border-radius: 50%;
+display: flex;
+align-items: center;
+justify-content: center;
+color: white;
+font-size: 1.4rem;
+margin-right: 1.2rem;
+flex-shrink: 0;
+}
+.contact-text h3 {
+font-size: 1.4rem;
+margin-bottom: 0.4rem;
+color: var(--accent-primary);
+}
+.contact-text p, .contact-text a {
+color: var(--text-secondary);
+text-decoration: none;
+transition: var(--transition);
+display: block;
+margin-top: 0.3rem;
+}
+.contact-text a:hover {
+color: var(--accent-secondary);
+}
+.map-container {
+height: 450px;
+border-radius: 16px;
+overflow: hidden;
+box-shadow: var(--shadow);
+background: var(--bg-secondary);
+position: relative;
+}
+#map {
+width: 100%;
+height: 100%;
+}
+/* VK CTA Section */
+.vk-cta {
+background: linear-gradient(135deg, var(--accent-primary) 0%, var(--accent-secondary) 100%);
+border-radius: 20px;
+padding: 3rem;
+text-align: center;
+margin-top: 2.5rem;
+box-shadow: var(--shadow-hover);
+color: white;
+}
+.vk-cta h3 {
+font-size: 2.2rem;
+margin-bottom: 1.2rem;
+text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+.vk-cta p {
+font-size: 1.3rem;
+max-width: 700px;
+margin: 0 auto 2rem;
+opacity: 0.95;
+}
+.vk-btn {
+background: white;
+color: var(--accent-primary);
+padding: 1.1rem 2.8rem;
+border-radius: 50px;
+text-decoration: none;
+font-weight: 700;
+font-size: 1.3rem;
+display: inline-block;
+margin: 1rem auto;
+border: 3px solid white;
+box-shadow: 0 6px 15px rgba(0,0,0,0.25);
+transition: var(--transition);
+}
+.vk-btn:hover {
+transform: translateY(-3px) scale(1.05);
+box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+background: #f8f9fa;
+}
+.qr-code-large {
+margin-top: 2rem;
+}
+.qr-code-large img {
+width: 350px;
+height: 350px;
+border-radius: 20px;
+border: 8px solid white;
+background: white;
+padding: 15px;
+box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+margin: 0 auto;
+display: block;
+max-width: 100%;
+}
+.qr-code-large p {
+margin-top: 1.2rem;
+font-size: 1.2rem;
+font-weight: 500;
+opacity: 0.9;
+}
+/* Footer */
+footer {
+background: var(--bg-secondary);
+padding: 2.5rem 5%;
+text-align: center;
+margin-top: 3rem;
+border-top: 1px solid var(--border-color);
+}
+.footer-content {
+max-width: 1200px;
+margin: 0 auto;
+display: flex;
+flex-direction: column;
+align-items: center;
+}
+.footer-logo {
+font-size: 2rem;
+font-weight: 700;
+color: var(--accent-primary);
+margin-bottom: 1.5rem;
+display: flex;
+align-items: center;
+}
+.footer-logo-icon {
+margin-right: 0.5rem;
+}
+.social-links {
+margin: 1.5rem 0;
+}
+.social-link {
+display: inline-block;
+margin: 0 10px;
+color: var(--accent-primary);
+font-size: 1.8rem;
+text-decoration: none;
+transition: var(--transition);
+font-weight: 600;
+padding: 0.8rem 1.5rem;
+border-radius: 50px;
+background: var(--bg-primary);
+box-shadow: var(--shadow);
+}
+.social-link:hover {
+transform: scale(1.1);
+color: white;
+background: var(--accent-secondary);
+box-shadow: var(--shadow-hover);
+}
+.copyright {
+color: var(--text-secondary);
+margin-top: 1.5rem;
+padding-top: 1.5rem;
+border-top: 1px solid var(--border-color);
+width: 100%;
+font-size: 0.95rem;
+}
+/* Responsive Design */
+@media (max-width: 992px) {
+.about-grid,
+.contact-container {
+grid-template-columns: 1fr;
+}
+.hero h1 {
+font-size: 2.8rem;
+}
+.hero p {
+font-size: 1.3rem;
+}
+.map-container {
+height: 400px;
+}
+.qr-code-large img {
+width: 300px;
+height: 300px;
+}
+}
+@media (max-width: 768px) {
+.header-container {
+flex-direction: column;
+padding: 1rem 5%;
+}
+nav ul {
+margin-top: 1rem;
+margin-left: 0;
+flex-wrap: wrap;
+justify-content: center;
+}
+nav ul li {
+margin: 0.5rem 0.8rem;
+}
+.header-actions {
+margin-top: 1rem;
+width: 100%;
+justify-content: center;
+}
+.hero {
+padding: 3rem 1.5rem;
+}
+.hero h1 {
+font-size: 2.3rem;
+}
+.hero p {
+font-size: 1.15rem;
+}
+.btn {
+padding: 0.8rem 1.8rem;
+font-size: 1rem;
+}
+.stat-card {
+padding: 1.5rem;
+}
+.stat-number {
+font-size: 2rem;
+}
+.map-container {
+height: 350px;
+}
+main {
+padding: 1.5rem 5%;
+margin-top: 60px;
+}
+.vk-cta {
+padding: 2rem 1.5rem;
+}
+.vk-cta h3 {
+font-size: 1.8rem;
+}
+.vk-cta p {
+font-size: 1.1rem;
+}
+.vk-btn {
+padding: 0.9rem 2.2rem;
+font-size: 1.1rem;
+}
+.qr-code-large img {
+width: 280px;
+height: 280px;
+}
+.qr-code-large p {
+font-size: 1rem;
+}
+.portfolio-grid {
+grid-template-columns: 1fr;
+}
+}
+@media (max-width: 480px) {
+.logo {
+font-size: 1.5rem;
+}
+nav ul li {
+margin: 0.3rem 0.5rem;
+}
+nav ul li a {
+font-size: 0.95rem;
+}
+.theme-toggle, .lang-toggle {
+width: 36px;
+height: 36px;
+font-size: 1rem;
+}
+.hero h1 {
+font-size: 2rem;
+}
+.hero p {
+font-size: 1rem;
+}
+.hours-grid {
+grid-template-columns: 1fr;
+}
+.contact-item {
+flex-direction: column;
+align-items: flex-start;
+}
+.contact-icon {
+margin-right: 0;
+margin-bottom: 0.8rem;
+}
+.map-container {
+height: 300px;
+}
+.price-cards {
+grid-template-columns: 1fr;
+}
+.vk-cta h3 {
+font-size: 1.6rem;
+}
+.vk-cta p {
+font-size: 1rem;
+}
+.vk-btn {
+padding: 0.8rem 2rem;
+font-size: 1rem;
+}
+.qr-code-large img {
+width: 250px;
+height: 250px;
+border-radius: 16px;
+}
+.qr-code-large p {
+font-size: 0.95rem;
+}
+}
+</style>
+</head>
+<body>
+<header>
+<div class="header-container">
+<a href="#" class="logo" id="home-link">
+<span class="logo-icon">✦</span>
+Aerra
+</a>
+<nav>
+<ul>
+<li><a href="#" class="nav-link active" data-page="home">Главная</a></li>
+<li><a href="#" class="nav-link" data-page="about">О нас</a></li>
+<li><a href="#" class="nav-link" data-page="services">Услуги</a></li>
+<li><a href="#" class="nav-link" data-page="prices">Цены</a></li>
+<li><a href="#" class="nav-link" data-page="contacts">Контакты</a></li>
+</ul>
+</nav>
+<div class="header-actions">
+<button class="theme-toggle" id="theme-toggle">☀️</button>
+<button class="lang-toggle" id="lang-toggle">RU</button>
+</div>
+</div>
+</header>
+<main>
+<!-- Home Page -->
+<section id="home" class="page active">
+<div class="hero">
+<h1>Сублимационная печать премиум-класса</h1>
+<p>Более 15 лет создаем яркие воспоминания на кружках, футболках, медалях и других предметах с безупречным качеством и вниманием к деталям</p>
+<a href="https://vk.com/id706637815" target="_blank" class="btn btn-primary" id="order-btn">Написать в ВКонтакте</a>
+</div>
+<div class="about-preview">
+<h2>Почему выбирают нас?</h2>
+<div class="stats-grid">
+<div class="stat-card">
+<div class="stat-number">15+</div>
+<div class="stat-label">Лет на рынке</div>
+</div>
+<div class="stat-card">
+<div class="stat-number">10000+</div>
+<div class="stat-label">Реализованных проектов</div>
+</div>
+<div class="stat-card">
+<div class="stat-number">24ч</div>
+<div class="stat-label">Срок изготовления</div>
+</div>
+<div class="stat-card">
+<div class="stat-number">100%</div>
+<div class="stat-label">Гарантия качества</div>
+</div>
+</div>
+</div>
+</section>
+<!-- About Page -->
+<section id="about" class="page">
+<h1>О компании Aerra</h1>
+<div class="about-grid">
+<div class="about-text">
+<h2>Лидер сублимационной печати в Перми с 2008 года</h2>
+<p>Компания Aerra специализируется на сублимационной печати на различных материалах. Мы работаем с 2008 года и за это время заслужили доверие тысяч клиентов в Перми и по всей России.</p>
+<p>Наша миссия — превращать обычные предметы в уникальные произведения искусства с помощью современных технологий печати. Мы используем только качественные материалы и оборудование премиум-класса, чтобы гарантировать долговечность и яркость изображений.</p>
+<div class="working-hours">
+<h3>Режим работы</h3>
+<div class="hours-grid">
+<div><span class="day">Понедельник-Четверг:</span> <span class="time">10:00 - 18:00</span></div>
+<div><span class="day">Пятница:</span> <span class="time">10:00 - 15:00</span></div>
+<div><span class="day">Суббота:</span> <span class="time">Выходной</span></div>
+<div><span class="day">Воскресенье:</span> <span class="time">Выходной</span></div>
+</div>
+</div>
+</div>
+<div>
+<div class="stat-card">
+<h3>Наше производство</h3>
+<p style="margin-top: 1rem;">Мы располагаем современным оборудованием для сублимационной печати, включая профессиональные принтеры, прессы различного формата и специализированные станки для обработки материалов.</p>
+<p style="margin-top: 1rem;">Наш цех оснащен системами контроля температуры и влажности, что обеспечивает стабильно высокое качество продукции независимо от сезона.</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Services Page -->
+<section id="services" class="page">
+<h1>Наши услуги</h1>
+<p style="text-align: center; font-size: 1.2rem; margin: 1.5rem 0 3rem; max-width: 800px; margin-left: auto; margin-right: auto;">
+Мы предлагаем полный спектр услуг сублимационной печати на различных материалах. Все изделия изготавливаются на профессиональном оборудовании с использованием качественных материалов.
+</p>
+<div class="services-categories">
+<div class="category-card">
+<div class="category-header">
+<h3>Текстиль</h3>
+</div>
+<div class="category-items">
+<ul>
+<li>Футболки и толстовки</li>
+<li>Кепки и бейсболки</li>
+<li>Подушки и чехлы</li>
+</ul>
+</div>
+</div>
+<div class="category-card">
+<div class="category-header">
+<h3>Посуда и кухонные принадлежности</h3>
+</div>
+<div class="category-items">
+<ul>
+<li>Кружки и термокружки</li>
+<li>Тарелки</li>
+<li>Фляжки</li>
+</ul>
+</div>
+</div>
+<div class="category-card">
+<div class="category-header">
+<h3>Наградная продукция</h3>
+</div>
+<div class="category-items">
+<ul>
+<li>Медали и награды</li>
+<li>Шильды</li>
+<li>Брелоки</li>
+<li>Фото на металле</li>
+<li>Коврики для мыши</li>
+</ul>
+</div>
+</div>
+</div>
+<!-- Portfolio Section -->
+<div class="portfolio-section">
+<div class="portfolio-header">
+<h2>Примеры работ</h2>
+<p>Посмотрите, что мы можем создать для вас. Наши работы отличаются высоким качеством и вниманием к деталям.</p>
+</div>
+<div class="portfolio-grid">
+<div class="portfolio-item">
+<img src="https://aerraperm.github.io/aerraperm/img/1.jpg" alt="Футболки с лолготипами" class="portfolio-img">
+<div class="portfolio-overlay">
+<h3>Футболки с логотипами</h3>
+<p>Сублимация на футболках хорошего качества</p>
+</div>
+</div>
+<div class="portfolio-item">
+<img src="https://aerraperm.github.io/aerraperm/img/2.jpg" alt="Футболки с логотипами" class="portfolio-img">
+<div class="portfolio-overlay">
+<h3>Футболки с логотипами</h3>
+<p>Корпоративная полиграфия для компаний</p>
+</div>
+</div>
+<div class="portfolio-item">
+<img src="https://aerraperm.github.io/aerraperm/img/4.jpg" alt="Кружки с текстовыми принтами" class="portfolio-img">
+<div class="portfolio-overlay">
+<h3>Кружки с текстовыми принтами</h3>
+<p>Уникальные подарочные кружки</p>
+</div>
+</div>
+<div class="portfolio-item">
+<img src="https://aerraperm.github.io/aerraperm/img/5.jpg" alt="Футболки с надписями" class="portfolio-img">
+<div class="portfolio-overlay">
+<h3>Футболки с морскими мотивами</h3>
+<p>Индивидуальные принты на футболках</p>
+</div>
+</div>
+<div class="portfolio-item">
+<img src="https://aerraperm.github.io/aerraperm/img/3.jpg" alt="Футболки с цитатами" class="portfolio-img">
+<div class="portfolio-overlay">
+<h3>Футболки с цитатами</h3>
+<p>Стильные принты для повседневного ношения</p>
+</div>
+</div>
+<div class="portfolio-item">
+<img src="https://aerraperm.github.io/aerraperm/img/6.jpg" alt="Кружки с мемами" class="portfolio-img">
+<div class="portfolio-overlay">
+<h3>Футболки с мемами</h3>
+<p>Юмористические принты для офиса и дома</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Prices Page -->
+<section id="prices" class="page">
+<h1>Цены на услуги</h1>
+<div class="prices-intro">
+<h2>Доступные цены без скрытых платежей</h2>
+<p>Стоимость заказа зависит от типа изделия, количества, сложности дизайна и срочности изготовления. Ниже представлены ориентировочные цены. Точную стоимость мы рассчитаем после обсуждения деталей вашего заказа.</p>
+</div>
+<div class="price-cards">
+<div class="price-card">
+<div class="price-header">
+<h3>Кружки</h3>
+</div>
+<div class="price-items">
+<div class="price-value">от 350₽</div>
+<ul>
+<li>Белая кружка 330мл</li>
+<li>Цветная кружка 330мл</li>
+<li>Кружка с фото</li>
+<li>Термокружка</li>
+<li>Детская кружка</li>
+</ul>
+</div>
+</div>
+<div class="price-card">
+<div class="price-header">
+<h3>Футболки</h3>
+</div>
+<div class="price-items">
+<div class="price-value">от 800₽</div>
+<ul>
+<li>Футболки</li>
+</ul>
+</div>
+</div>
+<div class="price-card">
+<div class="price-header">
+<h3>Наградная продукция</h3>
+</div>
+<div class="price-items">
+<div class="price-value">от 150₽</div>
+<ul>
+<li>Брелоки</li>
+<li>Медали</li>
+<li>Плакетки</li>
+<li>Шильды</li>
+<li>Коврики для мыши</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="price-note">
+<p>Минимальный заказ от 10 шт. Скидки зависят от количества.</p>
+</div>
+</section>
+<!-- Contacts Page -->
+<section id="contacts" class="page">
+<h1>Контакты</h1>
+<div class="contact-container">
+<div class="contact-info">
+<h2>Свяжитесь с нами</h2>
+<div class="contact-details">
+<div class="contact-item">
+<div class="contact-icon">📍</div>
+<div class="contact-text">
+<h3>Адрес</h3>
+<p>614000, г. Пермь, ул. Героев Хасана, 21</p>
+</div>
+</div>
+<div class="contact-item">
+<div class="contact-icon">📞</div>
+<div class="contact-text">
+<h3>Телефоны</h3>
+<a href="tel:+73422155167">+7 (342) 215-51-67</a>
+<a href="tel:+79027944611">+7 (902) 794-46-11</a>
+</div>
+</div>
+<div class="contact-item">
+<div class="contact-icon">✉️</div>
+<div class="contact-text">
+<h3>Email</h3>
+<a href="mailto:opt@mksperm.ru">opt@mksperm.ru</a>
+</div>
+</div>
+<div class="contact-item">
+<div class="contact-icon">🕒</div>
+<div class="contact-text">
+<h3>Режим работы</h3>
+<p>Пн-Чт: 10:00 - 18:00</p>
+<p>Пт: 10:00 - 15:00</p>
+<p>Сб-Вс: выходной</p>
+</div>
+</div>
+</div>
+</div>
+<div class="map-container">
+<div id="map"></div>
+</div>
+</div>
+<!-- VK CTA Section - replaces the form -->
+<div class="vk-cta">
+<h3>Отправьте заявку в ВКонтакте</h3>
+<p>Напишите нам в личные сообщения ВКонтакте для оформления заказа или получения консультации. Мы оперативно ответим на все ваши вопросы!</p>
+<a href="https://vk.com/id706637815" target="_blank" class="vk-btn">Написать в ВКонтакте</a>
+<div class="qr-code-large">
+<img src="https://api.qrserver.com/v1/create-qr-code/?size=350x350&data=https://vk.com/id706637815" alt="QR код ВКонтакте">
+<p>Отсканируйте QR-код для перехода в ВКонтакте</p>
+</div>
+</div>
+</section>
+</main>
+<footer>
+<div class="footer-content">
+<div class="footer-logo">
+<span class="footer-logo-icon">✦</span>
+Aerra
+</div>
+<div class="social-links">
+<a href="https://vk.com/id706637815" target="_blank" class="social-link">📱 Написать в ВКонтакте</a>
+</div>
+<p>Сублимационная печать премиум-класса в Перми с 2008 года</p>
+<div class="copyright">
+&copy; 2008-2026 Aerra. Все права защищены. Разработано с любовью к качеству.
+</div>
+</div>
+</footer>
+<script>
+// DOM Elements
+const themeToggle = document.getElementById('theme-toggle');
+const langToggle = document.getElementById('lang-toggle');
+const navLinks = document.querySelectorAll('.nav-link');
+const pages = document.querySelectorAll('.page');
+const homeLink = document.getElementById('home-link');
+// Translation data
+const translations = {
+ru: {
+home: "Главная",
+about: "О нас",
+services: "Услуги",
+prices: "Цены",
+contacts: "Контакты",
+heroTitle: "Сублимационная печать премиум-класса",
+heroSubtitle: "Более 15 лет создаем яркие воспоминания на кружках, футболках, медалях и других предметах с безупречным качеством и вниманием к деталям",
+heroButton: "Написать в ВКонтакте",
+whyUs: "Почему выбирают нас?",
+years: "Лет на рынке",
+projects: "Реализованных проектов",
+productionTime: "Срок изготовления",
+quality: "Гарантия качества",
+aboutTitle: "О компании Aerra",
+aboutSubtitle: "Лидер сублимационной печати в Перми с 2008 года",
+aboutText1: "Компания Aerra специализируется на сублимационной печати на различных материалах. Мы работаем с 2008 года и за это время заслужили доверие тысяч клиентов в Перми и по всей России.",
+aboutText2: "Наша миссия — превращать обычные предметы в уникальные произведения искусства с помощью современных технологий печати. Мы используем только качественные материалы и оборудование премиум-класса, чтобы гарантировать долговечность и яркость изображений.",
+workSchedule: "Режим работы",
+monThu: "Понедельник-Четверг:",
+fri: "Пятница:",
+sat: "Суббота:",
+sun: "Воскресенье:",
+time1: "10:00 - 18:00",
+time2: "10:00 - 15:00",
+dayOff: "Выходной",
+productionTitle: "Наше производство",
+productionText1: "Мы располагаем современным оборудованием для сублимационной печати, включая профессиональные принтеры, прессы различного формата и специализированные станки для обработки материалов.",
+productionText2: "Наш цех оснащен системами контроля температуры и влажности, что обеспечивает стабильно высокое качество продукции независимо от сезона.",
+servicesTitle: "Наши услуги",
+servicesSubtitle: "Мы предлагаем полный спектр услуг сублимационной печати на различных материалах. Все изделия изготавливаются на профессиональном оборудовании с использованием качественных материалов.",
+textiles: "Текстиль",
+textilesItems: ["Футболки и толстовки", "Кепки и бейсболки", "Подушки и чехлы"],
+dishes: "Посуда и кухонные принадлежности",
+dishesItems: ["Кружки и термокружки", "Тарелки", "Фляжки"],
+awards: "Наградная продукция",
+awardsItems: ["Медали и награды", "Шильды", "Брелоки", "Фото на металле", "Коврики для мыши"],
+pricesTitle: "Цены на услуги",
+pricesSubtitle: "Доступные цены без скрытых платежей",
+pricesText: "Стоимость заказа зависит от типа изделия, количества, сложности дизайна и срочности изготовления. Ниже представлены ориентировочные цены. Точную стоимость мы рассчитаем после обсуждения деталей вашего заказа.",
+mugs: "Кружки",
+mugsPrice: "от 350₽",
+mugsItems: ["Белая кружка 330мл", "Цветная кружка 330мл", "Кружка с фото", "Термокружка", "Детская кружка"],
+tshirts: "Футболки",
+tshirtsPrice: "от 800₽",
+tshirtsItems: ["Футболки"],
+awardsPrice: "Наградная продукция",
+awardsPriceValue: "от 150₽",
+awardsPriceItems: ["Брелоки", "Медали", "Плакетки", "Шильды", "Коврики для мыши"],
+priceNote1: "Минимальный заказ от 10 шт. Скидки зависят от количества.",
+contactsTitle: "Контакты",
+contactsSubtitle: "Свяжитесь с нами",
+address: "614000, г. Пермь, ул. Героев Хасана, 21",
+phones: "Телефоны",
+phone1: "+7 (342) 215-51-67",
+phone2: "+7 (902) 794-46-11",
+email: "Email",
+emailValue: "opt@mksperm.ru",
+workHours: "Режим работы",
+vkCtaTitle: "Отправьте заявку в ВКонтакте",
+vkCtaText: "Напишите нам в личные сообщения ВКонтакте для оформления заказа или получения консультации. Мы оперативно ответим на все ваши вопросы!",
+vkCtaButton: "Написать в ВКонтакте",
+vkCtaQrText: "Отсканируйте QR-код для перехода в ВКонтакте",
+portfolioTitle: "Примеры работ",
+portfolioSubtitle: "Посмотрите, что мы можем создать для вас",
+monThuShort: "Пн-Чт:",
+friShort: "Пт:",
+satSun: "Сб-Вс:",
+footerText: "Сублимационная печать премиум-класса в Перми с 2008 года",
+copyright: "&copy; 2008-2026 Aerra. Все права защищены. Разработано с любовью к качеству."
+},
+en: {
+home: "Home",
+about: "About Us",
+services: "Services",
+prices: "Prices",
+contacts: "Contacts",
+heroTitle: "Premium Sublimation Printing",
+heroSubtitle: "For over 15 years, we've been creating vivid memories on mugs, t-shirts, medals and other items with impeccable quality and attention to detail",
+heroButton: "Write on VKontakte",
+whyUs: "Why choose us?",
+years: "Years in business",
+projects: "Projects completed",
+productionTime: "Production time",
+quality: "Quality guarantee",
+aboutTitle: "About Aerra Company",
+aboutSubtitle: "Leader in sublimation printing in Perm since 2008",
+aboutText1: "Aerra Company specializes in sublimation printing on various materials. We have been operating since 2008 and have earned the trust of thousands of customers in Perm and throughout Russia.",
+aboutText2: "Our mission is to transform ordinary items into unique works of art using modern printing technologies. We use only quality materials and premium-class equipment to ensure the durability and brightness of images.",
+workSchedule: "Working hours",
+monThu: "Monday-Thursday:",
+fri: "Friday:",
+sat: "Saturday:",
+sun: "Sunday:",
+time1: "10:00 AM - 6:00 PM",
+time2: "10:00 AM - 3:00 PM",
+dayOff: "Day off",
+productionTitle: "Our production facility",
+productionText1: "We have modern equipment for sublimation printing, including professional printers, presses of various formats and specialized machines for material processing.",
+productionText2: "Our workshop is equipped with temperature and humidity control systems, which ensures consistently high product quality regardless of the season.",
+servicesTitle: "Our services",
+servicesSubtitle: "We offer a full range of sublimation printing services on various materials. All products are manufactured on professional equipment using quality materials.",
+textiles: "Textiles",
+textilesItems: ["T-shirts and hoodies", "Caps and baseball caps", "Pillows and covers"],
+dishes: "Dishes and kitchen accessories",
+dishesItems: ["Mugs and thermomugs", "Plates", "Flasks"],
+awards: "Award products",
+awardsItems: ["Medals and awards", "Nameplates", "Keychains", "Photos on metal", "Mouse pads"],
+pricesTitle: "Service prices",
+pricesSubtitle: "Affordable prices with no hidden fees",
+pricesText: "The cost of an order depends on the type of product, quantity, design complexity and urgency of production. Below are approximate prices. We will calculate the exact cost after discussing the details of your order.",
+mugs: "Mugs",
+mugsPrice: "from 350₽",
+mugsItems: ["White mug 330ml", "Colored mug 330ml", "Photo mug", "Thermomug", "Children's mug"],
+tshirts: "T-shirts",
+tshirtsPrice: "from 800₽",
+tshirtsItems: ["T-shirts"],
+awardsPrice: "Award products",
+awardsPriceValue: "from 150₽",
+awardsPriceItems: ["Keychains", "Medals", "Plaques", "Nameplates", "Mouse pads"],
+priceNote1: "Minimum order from 10 pieces. Discounts depend on quantity.",
+contactsTitle: "Contacts",
+contactsSubtitle: "Contact us",
+address: "614000, Perm, Geroev Hasana St., 21",
+phones: "Phones",
+phone1: "+7 (342) 215-51-67",
+phone2: "+7 (902) 794-46-11",
+email: "Email",
+emailValue: "opt@mksperm.ru",
+workHours: "Working hours",
+vkCtaTitle: "Send your request via VKontakte",
+vkCtaText: "Write to us in VKontakte private messages to place an order or get a consultation. We will promptly answer all your questions!",
+vkCtaButton: "Write on VKontakte",
+vkCtaQrText: "Scan QR code to go to VKontakte",
+portfolioTitle: "Our Work Examples",
+portfolioSubtitle: "See what we can create for you",
+monThuShort: "Mon-Thu:",
+friShort: "Fri:",
+satSun: "Sat-Sun:",
+footerText: "Premium sublimation printing in Perm since 2008",
+copyright: "&copy; 2008-2026 Aerra. All rights reserved. Designed with love for quality."
+}
+};
+// Current language
+let currentLang = 'ru';
+// Initialize the page
+document.addEventListener('DOMContentLoaded', function() {
+// Initialize Yandex Map with the exact coordinates provided
+if (document.getElementById('map')) {
+ymaps.ready(initMap);
+}
+// Set up event listeners
+setupEventListeners();
+// Set initial theme based on system preference
+if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+document.body.classList.add('dark-theme');
+themeToggle.textContent = '🌙';
+}
+});
+// Initialize map with EXACT coordinates provided: 57.986722, 56.258585
+function initMap() {
+const map = new ymaps.Map('map', {
+center: [57.986722, 56.258585],
+zoom: 16,
+controls: ['zoomControl', 'fullscreenControl']
+}, {
+suppressMapOpenBlock: true
+});
+const placemark = new ymaps.Placemark([57.986722, 56.258585], {
+balloonContent: 'Aerra - сублимационная печать',
+iconContent: 'Aerra'
+}, {
+preset: 'islands#blueStretchyIcon',
+iconColor: '#2c3e50'
+});
+map.geoObjects.add(placemark);
+// Make map container responsive
+window.addEventListener('resize', function() {
+map.container.fitToViewport();
+});
+}
+// Set up event listeners
+function setupEventListeners() {
+// Theme toggle
+themeToggle.addEventListener('click', function() {
+document.body.classList.toggle('dark-theme');
+this.textContent = document.body.classList.contains('dark-theme') ? '🌙' : '☀️';
+});
+// Language toggle
+langToggle.addEventListener('click', function() {
+currentLang = currentLang === 'ru' ? 'en' : 'ru';
+this.textContent = currentLang === 'ru' ? 'RU' : 'EN';
+updateContentLanguage();
+});
+// Navigation links
+navLinks.forEach(link => {
+link.addEventListener('click', function(e) {
+e.preventDefault();
+// Update active link
+navLinks.forEach(l => l.classList.remove('active'));
+this.classList.add('active');
+// Show selected page
+const pageId = this.getAttribute('data-page');
+pages.forEach(page => {
+page.classList.remove('active');
+if (page.id === pageId) {
+page.classList.add('active');
+}
+});
+// Scroll to top
+window.scrollTo(0, 0);
+});
+});
+// Home logo link
+homeLink.addEventListener('click', function(e) {
+e.preventDefault();
+// Update active link
+navLinks.forEach(l => l.classList.remove('active'));
+document.querySelector('[data-page="home"]').classList.add('active');
+// Show home page
+pages.forEach(page => {
+page.classList.remove('active');
+if (page.id === 'home') {
+page.classList.add('active');
+}
+});
+// Scroll to top
+window.scrollTo(0, 0);
+});
+}
+// Update content based on selected language
+function updateContentLanguage() {
+const t = translations[currentLang];
+// Update navigation
+document.querySelector('[data-page="home"]').textContent = t.home;
+document.querySelector('[data-page="about"]').textContent = t.about;
+document.querySelector('[data-page="services"]').textContent = t.services;
+document.querySelector('[data-page="prices"]').textContent = t.prices;
+document.querySelector('[data-page="contacts"]').textContent = t.contacts;
+// Update home page
+document.querySelector('.hero h1').textContent = t.heroTitle;
+document.querySelector('.hero p').textContent = t.heroSubtitle;
+document.querySelector('#order-btn').textContent = t.heroButton;
+document.querySelector('.about-preview h2').textContent = t.whyUs;
+document.querySelectorAll('.stat-label')[0].textContent = t.years;
+document.querySelectorAll('.stat-label')[1].textContent = t.projects;
+document.querySelectorAll('.stat-label')[2].textContent = t.productionTime;
+document.querySelectorAll('.stat-label')[3].textContent = t.quality;
+// Update about page
+document.querySelector('#about h1').textContent = t.aboutTitle;
+document.querySelector('.about-text h2').textContent = t.aboutSubtitle;
+document.querySelectorAll('.about-text p')[0].textContent = t.aboutText1;
+document.querySelectorAll('.about-text p')[1].textContent = t.aboutText2;
+document.querySelector('.working-hours h3').textContent = t.workSchedule;
+document.querySelectorAll('.day')[0].textContent = t.monThu;
+document.querySelectorAll('.day')[1].textContent = t.fri;
+document.querySelectorAll('.day')[2].textContent = t.sat;
+document.querySelectorAll('.day')[3].textContent = t.sun;
+document.querySelectorAll('.time')[0].textContent = t.time1;
+document.querySelectorAll('.time')[1].textContent = t.time2;
+document.querySelectorAll('.time')[2].textContent = t.dayOff;
+document.querySelectorAll('.time')[3].textContent = t.dayOff;
+document.querySelector('.stat-card h3').textContent = t.productionTitle;
+document.querySelectorAll('.stat-card p')[0].textContent = t.productionText1;
+document.querySelectorAll('.stat-card p')[1].textContent = t.productionText2;
+// Update services page
+document.querySelector('#services h1').textContent = t.servicesTitle;
+document.querySelector('#services p').textContent = t.servicesSubtitle;
+document.querySelectorAll('.category-header h3')[0].textContent = t.textiles;
+document.querySelectorAll('.category-header h3')[1].textContent = t.dishes;
+document.querySelectorAll('.category-header h3')[2].textContent = t.awards;
+// Update textiles items
+const textilesItems = document.querySelectorAll('.services-categories .category-card:nth-child(1) li');
+t.textilesItems.forEach((item, index) => {
+if (textilesItems[index]) textilesItems[index].textContent = item;
+});
+// Update dishes items
+const dishesItems = document.querySelectorAll('.services-categories .category-card:nth-child(2) li');
+t.dishesItems.forEach((item, index) => {
+if (dishesItems[index]) dishesItems[index].textContent = item;
+});
+// Update awards items
+const awardsItems = document.querySelectorAll('.services-categories .category-card:nth-child(3) li');
+t.awardsItems.forEach((item, index) => {
+if (awardsItems[index]) awardsItems[index].textContent = item;
+});
+// Update prices page
+document.querySelector('#prices h1').textContent = t.pricesTitle;
+document.querySelector('.prices-intro h2').textContent = t.pricesSubtitle;
+document.querySelector('.prices-intro p').textContent = t.pricesText;
+document.querySelectorAll('.price-header h3')[0].textContent = t.mugs;
+document.querySelectorAll('.price-header h3')[1].textContent = t.tshirts;
+document.querySelectorAll('.price-header h3')[2].textContent = t.awardsPrice;
+document.querySelector('.price-value').textContent = t.mugsPrice;
+document.querySelectorAll('.price-value')[1].textContent = t.tshirtsPrice;
+document.querySelectorAll('.price-value')[2].textContent = t.awardsPriceValue;
+// Update mugs items
+const mugsItems = document.querySelectorAll('.price-cards .price-card:nth-child(1) li');
+t.mugsItems.forEach((item, index) => {
+if (mugsItems[index]) mugsItems[index].textContent = item;
+});
+// Update t-shirts items
+const tshirtsItems = document.querySelectorAll('.price-cards .price-card:nth-child(2) li');
+t.tshirtsItems.forEach((item, index) => {
+if (tshirtsItems[index]) tshirtsItems[index].textContent = item;
+});
+// Update awards items in prices
+const awardsPriceItems = document.querySelectorAll('.price-cards .price-card:nth-child(3) li');
+t.awardsPriceItems.forEach((item, index) => {
+if (awardsPriceItems[index]) awardsPriceItems[index].textContent = item;
+});
+document.querySelector('.price-note p').textContent = t.priceNote1;
+// Update contacts page
+document.querySelector('#contacts h1').textContent = t.contactsTitle;
+document.querySelector('.contact-info h2').textContent = t.contactsSubtitle;
+document.querySelector('.contact-text p').textContent = t.address;
+document.querySelectorAll('.contact-text h3')[0].textContent = t.phones;
+document.querySelectorAll('.contact-text a')[0].textContent = t.phone1;
+document.querySelectorAll('.contact-text a')[0].href = `tel:${t.phone1.replace(/\D/g, '')}`;
+document.querySelectorAll('.contact-text a')[1].textContent = t.phone2;
+document.querySelectorAll('.contact-text a')[1].href = `tel:${t.phone2.replace(/\D/g, '')}`;
+document.querySelectorAll('.contact-text h3')[1].textContent = t.email;
+document.querySelectorAll('.contact-text p')[1].textContent = t.emailValue;
+document.querySelectorAll('.contact-text h3')[2].textContent = t.workHours;
+document.querySelectorAll('.day')[4].textContent = t.monThuShort;
+document.querySelectorAll('.day')[5].textContent = t.friShort;
+document.querySelectorAll('.day')[6].textContent = t.satSun;
+document.querySelectorAll('.day')[7].textContent = t.satSun;
+// Update VK CTA section
+document.querySelector('.vk-cta h3').textContent = t.vkCtaTitle;
+document.querySelector('.vk-cta p').textContent = t.vkCtaText;
+document.querySelector('.vk-btn').textContent = t.vkCtaButton;
+document.querySelector('.qr-code-large p').textContent = t.vkCtaQrText;
+// Update portfolio section
+document.querySelector('.portfolio-header h2').textContent = t.portfolioTitle;
+document.querySelector('.portfolio-header p').textContent = t.portfolioSubtitle;
+// Update footer
+document.querySelector('.footer-text').textContent = t.footerText;
+document.querySelector('.copyright').innerHTML = t.copyright;
+document.querySelector('.social-link').textContent = `📱 ${t.vkCtaButton}`;
+document.querySelector('.social-link').href = "https://vk.com/id706637815";
+}
+</script>
+</body>
+</html>
